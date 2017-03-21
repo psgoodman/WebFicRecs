@@ -6,7 +6,7 @@ CREATE TABLE fics (
     synopsis text not null,
     rating integer not null,
     comments text not null,
-    rating integer not null,
+    length integer not null,
     author text not null,
     complete text not null,
     mood text not null,
