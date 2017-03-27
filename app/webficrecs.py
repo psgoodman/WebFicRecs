@@ -1,6 +1,7 @@
 import os
 import sqlite3
 import csv
+import click
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash
 
@@ -8,7 +9,7 @@ app = Flask(__name__)
 app.config.from_object(__name__)
 
 app.config.update(dict(
-    DATABASE=os.path.join(app.root_path, 'flaskr.db'),
+    DATABASE=os.path.join(app.root_path, 'webficrecs.db'),
     SECRET_KEY='development key',
     USERNAME='psgoodman',
     PASSWORD='horrifically insecure'
@@ -26,14 +27,14 @@ def init_db():
     with app.open_resource('schema.sql', mode='r') as f:
         db.cursor().executescript(f.read())
     db.commit()
-    reader = csv.reader(open('rec_data.tsv', 'r'), delimiter='  ')
+    reader = csv.reader(open('rec_data.tsv', 'r'), delimiter='\t')
     for row in reader:
         to_db = []
-        for i in range(row.len()):
-            to_db[i] = unicode(row[i], "utf8")
+        for i in range(len(row)):
+            to_db.append(unicode(row[i], "utf8"))
         db.cursor().execute("INSERT INTO fics (id, title, url, synopsis, rating, " \
-            "length, author, complete, mood, tvtropes) VALUES (?, ?, ?, ?, ?, " \
-            "?, ?, ?, ?, ?);", to_db)
+            "comments, length, author, complete, mood, tvtropes) VALUES (?, ?, "\
+            "?, ?, ?, ?, ?, ?, ?, ?, ?);", to_db)
     db.commit()
 
 @app.cli.command('initdb')
@@ -56,4 +57,6 @@ def close_db(error):
     if hasattr(g, 'sqlite_db'):
         g.sqlite_db.close()
 
-
+@app.route('/')
+def show_entries():
+    return render_template('show_entries.html')
