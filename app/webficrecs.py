@@ -3,7 +3,7 @@ import sqlite3
 import csv
 import click
 from flask import Flask, request, session, g, redirect, url_for, abort, \
-     render_template, flash
+     render_template, flash, jsonify
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -83,4 +83,11 @@ def logout():
 
 @app.route('/data')
 def data():
-    
+    db = get_db()
+    cur = db.execute('SELECT title, url, synopsis, rating, comments, length, ' \
+        'author, complete, mood, tvtropes FROM fics ORDER BY id ASC')
+    entries = cur.fetchall()
+    dic = [dict((cur.description[i][0], value) \
+               for i, value in enumerate(row)) for row in entries]
+    # json_output = json.dumps(dic)
+    return jsonify(dic)
