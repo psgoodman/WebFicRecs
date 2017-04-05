@@ -91,3 +91,23 @@ def data():
                for i, value in enumerate(row)) for row in entries]
     # json_output = json.dumps(dic)
     return jsonify(dic)
+
+@app.route('/new', methods=['GET', 'POST'])
+def new():
+    if not session.get('logged_in'):
+        abort(401)
+    elif request.method == 'POST':
+        db = get_db()
+        to_db = [request.form['title'], request.form['url'], \
+            request.form['synopsis'], request.form['rating'], \
+            request.form['comments'], request.form['length'], \
+            request.form['author'], request.form['complete'], \
+            request.form['mood'], request.form['tvtropes']]
+        db.execute('INSERT INTO fics (title, url, synopsis, rating, comments,' \
+            ' length, author, complete, mood, tvtropes) VALUES (?, ?, '\
+            '?, ?, ?, ?, ?, ?, ?, ?);', to_db)
+        db.commit()
+        flash('New entry was successfully added.')
+        return redirect(url_for('show_entries'))
+
+    return render_template('new.html')

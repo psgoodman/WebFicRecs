@@ -2,6 +2,9 @@
 {% block body %}
 
     Length is in words and often very roughly estimated. TV Tropes pages may contain spoilers.
+    {% if session.logged_in %}
+        <a href="/new">Add New Entry</a>
+    {% endif %}
     <div id="jsGrid"></div>
 
     

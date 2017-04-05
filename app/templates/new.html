@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block body %}
+    <form action="{{ url_for('new') }}" method=post class=add-entry>
+      <dl>
+        <dt>Title:
+        <dd><input type=text size=30 name=title>
+        <dt>URL:
+        <dd><input type=text size=30 name=url>
+        <dt>Synopsis:
+        <dd><textarea name=synopsis rows=5 cols=40></textarea>
+        <dt>Rating:
+        <dd>
+        <select name="rating">
+          <option value="0">A+</option>
+          <option value="1">A</option>
+          <option value="2">A-</option>
+          <option value="3">B+</option>
+          <option value="4">B</option>
+          <option value="5">B-</option>
+          <option value="6">C+</option>
+          <option value="7">C</option>
+          <option value="8">C-</option>
+        </select>
+        <dt>Comments:
+        <dd><textarea name=comments rows=5 cols=40></textarea>
+        <dt>Length (words):
+        <dd><input type=number size=30 name=length>
+        <dt>Author:
+        <dd><input type=text size=30 name=author>
+        <dt>Complete:
+        <dd>
+        <select name="complete">
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+        <dt>Mood:
+        <dd><input type=text size=30 name=mood>
+        <dt>TV Tropes URL:
+        <dd><input type=text size=30 name=tvtropes>
+        <dd><input type=submit value=Share>
+      </dl>
+    </form>
+{% endblock %}
