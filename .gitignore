@@ -1,0 +1,7 @@
+bin/
+lib/
+include/
+.Python
+webficrecs.egg-info/
+app/webficrecs.db
+app/webficrecs.pyc

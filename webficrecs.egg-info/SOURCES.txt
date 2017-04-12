@@ -1,9 +1,0 @@
-MANIFEST.in
-app/__init__.py
-app/schema.sql
-app/server.py
-webficrecs.egg-info/PKG-INFO
-webficrecs.egg-info/SOURCES.txt
-webficrecs.egg-info/dependency_links.txt
-webficrecs.egg-info/requires.txt
-webficrecs.egg-info/top_level.txt
