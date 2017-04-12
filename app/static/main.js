@@ -1,5 +1,5 @@
 $("#jsGrid").jsGrid({
-    width: "auto",
+    width: "1500",
     // height: "400px",
     autoload: true,
     inserting: false,
@@ -21,6 +21,8 @@ $("#jsGrid").jsGrid({
             name:"title",
             title: "Title",
             type: "text",
+            headercss: "title-header",
+            css: "title-cell",
             width: 150,
             itemTemplate: function(value, item) {
                 var html = '<a href="' + item.url + '">' + value + '</a>'
@@ -33,6 +35,8 @@ $("#jsGrid").jsGrid({
             name:"rating",
             title: "Rating",
             type: "number",
+            headercss: "rating-header",
+            css: "rating-cell",
             width: 70,
             itemTemplate: function(value, item) {
                 var ratings = ["A+", "A", "A-","B+", "B", "B-","C+", "C", "C-"]
