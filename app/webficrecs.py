@@ -89,6 +89,7 @@ def data():
     entries = cur.fetchall()
     dic = [dict((cur.description[i][0], value) \
                for i, value in enumerate(row)) for row in entries]
+    dic.sort(key=lambda x: x['rating'])
     # json_output = json.dumps(dic)
     return jsonify(dic)
 
