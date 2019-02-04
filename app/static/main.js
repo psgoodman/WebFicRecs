@@ -18,6 +18,12 @@ $("#jsGrid").jsGrid({
 
     fields: [
         {
+            name: "edit",
+            type: "text",
+            width: 50,
+            sorting: false
+        },
+        {
             name:"title",
             title: "Title",
             type: "text",
@@ -67,3 +73,8 @@ $("#jsGrid").jsGrid({
         }
     ]
 });
+
+$('.jsgrid-control-field').on('click', function() {
+    debugger;
+});
+

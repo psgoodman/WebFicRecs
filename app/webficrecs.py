@@ -84,12 +84,15 @@ def logout():
 @app.route('/data')
 def data():
     db = get_db()
-    cur = db.execute('SELECT title, url, synopsis, rating, comments, length, ' \
+    cur = db.execute('SELECT id, title, url, synopsis, rating, comments, length, ' \
         'author, complete, mood, tvtropes FROM fics ORDER BY id ASC')
     entries = cur.fetchall()
     dic = [dict((cur.description[i][0], value) \
                for i, value in enumerate(row)) for row in entries]
     dic.sort(key=lambda x: x['rating'])
+    if session.get('logged_in'):
+        for row in dic:
+            row['edit'] = '<a href="/edit/%s">EDIT</a>' %(row['id'])
     # json_output = json.dumps(dic)
     return jsonify(dic)
 
