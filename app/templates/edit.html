@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block body %}
+    <form method=post class=edit-entry>
+      <dl>
+        <dt>Title:
+        <dd><input type=text size=30 name=title 
+          value="{{ fic['title'] }}">
+        <dt>URL:
+        <dd><input type=text size=30 name=url 
+          value="{{ fic['url'] }}">
+        <dt>Synopsis:
+        <dd><textarea name=synopsis rows=5 cols=40>{{ fic['synopsis'] }}</textarea>
+        <dt>Rating:
+        <dd>
+        <select name="rating">
+          <option value="0" {{ selected if fic['rating'] == 0 }}>A+</option>
+          <option value="1" {{ selected if fic['rating'] == 1 }}>A</option>
+          <option value="2" {{ selected if fic['rating'] == 2 }}>A-</option>
+          <option value="3" {{ selected if fic['rating'] == 3 }}>B+</option>
+          <option value="4" {{ selected if fic['rating'] == 4 }}>B</option>
+          <option value="5" {{ selected if fic['rating'] == 5 }}>B-</option>
+          <option value="6" {{ selected if fic['rating'] == 6 }}>C+</option>
+          <option value="7" {{ selected if fic['rating'] == 7 }}>C</option>
+          <option value="8" {{ selected if fic['rating'] == 8 }}>C-</option>
+        </select>
+        <dt>Comments:
+        <dd><textarea name=comments rows=5 cols=40>{{ fic['comments'] }}</textarea>
+        <dt>Length (words):
+        <dd><input type=number size=30 name=length
+          value="{{ fic['length'] }}">
+        <dt>Author:
+        <dd><input type=text size=30 name=author
+          value="{{ fic['author'] }}">
+        <dt>Complete:
+        <dd>
+        <select name="complete">
+          <option value="Yes" {{ selected if fic['complete'] == 'Yes' }}>Yes</option>
+          <option value="No" {{ selected if fic['rating'] == 'No' }}>No</option>
+        </select>
+        <dt>Mood:
+        <dd><input type=text size=30 name=mood
+          value="{{ fic['mood'] }}">
+        <dt>TV Tropes URL:
+        <dd><input type=text size=30 name=tvtropes
+          value="{{ fic['tvtropes'] }}">
+        <dd><input type=submit value="Save Changes">
+      </dl>
+    </form>
+{% endblock %}

@@ -115,3 +115,27 @@ def new():
         return redirect(url_for('show_entries'))
 
     return render_template('new.html')
+
+@app.route('/edit/<int:id>', methods=['GET', 'POST'])
+def edit(id):
+    if not session.get('logged_in'):
+        abort(401)
+    elif request.method == 'POST':
+        db = get_db()
+        to_db = [request.form['title'], request.form['url'], \
+            request.form['synopsis'], request.form['rating'], \
+            request.form['comments'], request.form['length'], \
+            request.form['author'], request.form['complete'], \
+            request.form['mood'], request.form['tvtropes'], id]
+        db.execute('UPDATE fics SET title = ?, url = ?, synopsis = ?, rating = ?,' \
+            ' comments = ?, length = ?, author = ?, complete = ?, mood = ?, tvtropes = ?' \
+            ' WHERE id = ?;', to_db)
+        db.commit()
+        flash('Changes were successfully saved.')
+        return redirect(url_for('show_entries'))
+
+    cur = get_db().execute('SELECT id, title, url, synopsis, rating, comments, length, ' \
+        'author, complete, mood, tvtropes FROM fics WHERE id = %s;' %(id))
+    fic = cur.fetchone()
+
+    return render_template('edit.html', fic = fic)
